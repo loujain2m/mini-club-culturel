@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie - Club Culturel El Medina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ---------- RESET & VARIABLES ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --couleur-principale: #9b2c2a;
+            --couleur-secondaire: #d4a373;
+            --couleur-foncee: #2d1b15;
+            --couleur-claire: #fef9f0;
+            --couleur-gris: #5e4b3c;
+            --ombre-douce: 0 15px 30px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--couleur-claire);
+            color: var(--couleur-foncee);
+            line-height: 1.5;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* ---------- HEADER ---------- */
+        .site-header {
+            background: white;
+            padding: 0.8rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: auto;
+        }
+
+        .logo h1 {
+            font-size: 1.4rem;
+            color: var(--couleur-principale);
+        }
+
+        /* Burger menu responsive */
+        #menu-toggle {
+            display: none;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .burger span {
+            width: 28px;
+            height: 3px;
+            background: var(--couleur-principale);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .main-nav ul {
+            display: flex;
+            gap: 1.8rem;
+            list-style: none;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--couleur-foncee);
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            color: var(--couleur-principale);
+            border-bottom: 2px solid var(--couleur-principale);
+            padding-bottom: 4px;
+        }
+
+        /* ---------- MAIN CONTENU ---------- */
+        .galerie-header {
+            text-align: center;
+            padding: 3rem 1rem 2rem;
+            background: linear-gradient(135deg, #f5e7d9 0%, #fcf3e8 100%);
+            margin-bottom: 2rem;
+        }
+
+        .galerie-header h1 {
+            font-size: 2.8rem;
+            color: var(--couleur-principale);
+            margin-bottom: 1rem;
+        }
+
+        .galerie-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: var(--couleur-gris);
+        }
+
+        /* Grille des cartes */
+        .galerie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            gap: 2rem;
+            padding: 2rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .carte-evenement {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--ombre-douce);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .carte-evenement:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 40px rgba(0,0,0,0.15);
+        }
+
+        .carte-image {
+            height: 260px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carte-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .carte-evenement:hover .carte-image img {
+            transform: scale(1.05);
+        }
+
+        .badge-date {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--couleur-principale);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+            background-color: rgba(155, 44, 42, 0.9);
+        }
+
+        .carte-contenu {
+            padding: 1.5rem;
+        }
+
+        .carte-contenu h3 {
+            font-size: 1.5rem;
+            color: var(--couleur-principale);
+            margin-bottom: 0.5rem;
+        }
+
+        .carte-contenu .lieu {
+            font-weight: 600;
+            color: var(--couleur-secondaire);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .description {
+            color: #4a3b32;
+            margin: 1rem 0;
+            line-height: 1.4;
+        }
+
+        .details-artistiques {
+            background: #f9f2ea;
+            padding: 0.8rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+        }
+
+        .details-artistiques p {
+            margin: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-voir {
+            display: inline-block;
+            background: var(--couleur-principale);
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-voir:hover {
+            background: #7a221f;
+            transform: scale(0.98);
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--couleur-foncee);
+            color: #e4d5c3;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .site-footer a {
+            color: var(--couleur-secondaire);
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .burger {
+                display: flex;
+            }
+            .main-nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 70%;
+                height: calc(100vh - 70px);
+                background: white;
+                box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+                transition: 0.3s;
+                z-index: 99;
+                padding: 2rem;
+            }
+            #menu-toggle:checked ~ .main-nav {
+                left: 0;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .galerie-header h1 {
+                font-size: 2rem;
+            }
+            .galerie-grid {
+                padding: 1.5rem;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="logo">
+        <img src="images/logo.png" alt="Logo Club Culturel El Medina" onerror="this.src='https://placehold.co/50x50?text=Logo'">
+        <h1>Club Culturel El Medina</h1>
+    </div>
+    <input type="checkbox" id="menu-toggle" hidden>
+    <label for="menu-toggle" class="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <nav class="main-nav">
+        <ul class="nav-list">
+            <li><a href="home.html">Accueil</a></li>
+            <li><a href="index.html">Connexion</a></li>
+            <li><a href="event-details.html">Événements</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="profile.html">Profil</a></li>
+            <li><a href="register-event.html">Inscription</a></li>
+            <li><a href="galerie.html" class="active">Galerie</a></li>
+            <li><a href="adhesion.html">Adhésion</a></li>
+            <li><a href="calendrier.html">Calendrier</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="galerie-header">
+        <h1><i class="fas fa-camera-retro"></i> Galerie des moments forts</h1>
+        <p>Découvrez en images les temps forts de nos événements passés. Chaque photo capture l’énergie, la bonne humeur et la convivialité qui ont marqué ces moments uniques. Plongez dans l’ambiance et revivez ces instants mémorables avec nous.</p>
+    </div>
+
+    <div class="galerie-grid">
+        <!-- Carte 1 : Les Voix de la Paix -->
+        <div class="carte-evenement">
+            <div class="carte-image">
+                <img src="https://picsum.photos/id/104/500/350" alt="Concert Les Voix de la Paix">
+                <div class="badge-date">08 Oct. 2025</div>
+            </div>
+            <div class="carte-contenu">
+                <h3>Les Voix de la Paix</h3>
+                <div class="lieu"><i class="fas fa-map-marker-alt"></i> Tunis – Salle des fêtes</div>
+                <p class="description">Soirée artistique mêlant chants traditionnels et musique contemporaine. Un hommage à la paix et à la tolérance.</p>
+                <div class="details-artistiques">
+                    <p><i class="fas fa-microphone-alt"></i> Héritage à Fahd El Makki</p>
+                    <p><i class="fas fa-chalkboard-teacher"></i> Chantier : Mohamed El Mokhtari</p>
+                    <p><i class="fas fa-music"></i> Musique : Abdelkader El Moutawakil</p>
+                </div>
+                <a href="event-details.html?id=1" class="btn-voir">Voir l'événement <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Carte 2 : Les Belles de Carthage -->
+        <div class="carte-evenement">
+            <div class="carte-image">
+                <img src="https://picsum.photos/id/30/500/350" alt="Spectacle Les Belles de Carthage">
+                <div class="badge-date">12 Oct. 2025</div>
+            </div>
+            <div class="carte-contenu">
+                <h3>Les Belles de Carthage</h3>
+                <div class="lieu"><i class="fas fa-map-marker-alt"></i> El Kram – Théâtre de verdure</div>
+                <p class="description">Célébration du patrimoine tunisien à travers la danse, le costume traditionnel et la poésie.</p>
+                <div class="details-artistiques">
+                    <p><i class="fas fa-palette"></i> Mise en scène : Leila Ben Ammar</p>
+                    <p><i class="fas fa-tshirt"></i> Costumes : Héritage artisanal de Carthage</p>
+                </div>
+                <a href="event-details.html?id=2" class="btn-voir">Voir l'événement <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Carte 3 : Vampire Cup (jeu stratégique) -->
+        <div class="carte-evenement">
+            <div class="carte-image">
+                <img src="https://picsum.photos/id/26/500/350" alt="Tournoi Vampire Cup">
+                <div class="badge-date">06 Oct. 2025</div>
+            </div>
+            <div class="carte-contenu">
+                <h3>Vampire Cup</h3>
+                <div class="lieu"><i class="fas fa-map-marker-alt"></i> Monastir – Salle des congrès</div>
+                <p class="description">Compétition stratégique de jeux de cartes et d’énigmes. Ambiance mystérieuse et prix à gagner.</p>
+                <a href="event-details.html?id=3" class="btn-voir">Voir l'événement <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Carte 4 : Health & Olive Day -->
+        <div class="carte-evenement">
+            <div class="carte-image">
+                <img src="https://picsum.photos/id/127/500/350" alt="Journée santé et olive">
+                <div class="badge-date">07 Oct. 2025</div>
+            </div>
+            <div class="carte-contenu">
+                <h3>Health & Olive Day</h3>
+                <div class="lieu"><i class="fas fa-map-marker-alt"></i> Monastir – Parc des Oliviers</div>
+                <p class="description">Ateliers bien-être, dégustation d’huile d’olive, conférences sur les bienfaits du terroir.</p>
+                <a href="event-details.html?id=4" class="btn-voir">Voir l'événement <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Carte 5 : Hommage aux artistes ( répétition du contenu des Voix de la Paix mais avec des photos différentes pour enrichir) -->
+        <div class="carte-evenement">
+            <div class="carte-image">
+                <img src="https://picsum.photos/id/29/500/350" alt="Soirée poétique">
+                <div class="badge-date">15 Nov. 2025</div>
+            </div>
+            <div class="carte-contenu">
+                <h3>Nuit de la Poésie</h3>
+                <div class="lieu"><i class="fas fa-map-marker-alt"></i> Médina de Tunis – Dar El Mnara</div>
+                <p class="description">Récitations poétiques, hommage à Fahd El Makki et Mohamed El Mokhtari. Une soirée sous le signe de l'émotion.</p>
+                <div class="details-artistiques">
+                    <p><i class="fas fa-feather-alt"></i> Poèmes inédits de Fahd El Makki</p>
+                    <p><i class="fas fa-guitar"></i> Composition : Abdelkader El Moutawakil</p>
+                </div>
+                <a href="#" class="btn-voir">Découvrir <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Carte 6 : Atelier jeune public -->
+        <div class="carte-evenement">
+            <div class="carte-image">
+                <img src="https://picsum.photos/id/168/500/350" alt="Atelier enfants">
+                <div class="badge-date">20 Déc. 2025</div>
+            </div>
+            <div class="carte-contenu">
+                <h3>Contes de Carthage</h3>
+                <div class="lieu"><i class="fas fa-map-marker-alt"></i> El Kram – Maison de la culture</div>
+                <p class="description">Atelier de contes et d’arts plastiques pour enfants, autour des légendes tunisiennes.</p>
+                <a href="#" class="btn-voir">En savoir plus <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <p>© 2026 Club Culturel El Medina – Tunis | Tous droits réservés</p>
+    <p>
+        <a href="contact.html">Nous contacter</a> |
+        <a href="about.html">À propos</a> |
+        <a href="galerie.html">Galerie</a>
+    </p>
+</footer>
+
+<!-- Petit script pour l'image placeholder si jamais les fichiers locaux manquent -->
+<script>
+    // Option : remplacer les images placeholder par de vraies images si vous avez des fichiers locaux.
+    // Ce script gère simplement le menu burger pas d'erreur console.
+    console.log("Page galerie améliorée chargée");
+</script>
+</body>
+</html>

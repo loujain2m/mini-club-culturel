@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Accueil - Club Culturel El Medina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ---------- RESET & VARIABLES ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bordeaux: #9b2c2a;
+            --bordeaux-fonce: #7a221f;
+            --ocre: #d4a373;
+            --cafe: #2d1b15;
+            --creme: #fef9f0;
+            --gris-chaud: #5e4b3c;
+            --ombre: 0 20px 35px -10px rgba(0,0,0,0.1);
+            --transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--creme);
+            color: var(--cafe);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* ---------- HEADER (identique à la galerie) ---------- */
+        .site-header {
+            background: white;
+            padding: 0.8rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: auto;
+        }
+
+        .logo h1 {
+            font-size: 1.4rem;
+            color: var(--bordeaux);
+        }
+
+        #menu-toggle {
+            display: none;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .burger span {
+            width: 28px;
+            height: 3px;
+            background: var(--bordeaux);
+            border-radius: 3px;
+        }
+
+        .main-nav ul {
+            display: flex;
+            gap: 1.8rem;
+            list-style: none;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--cafe);
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            color: var(--bordeaux);
+            border-bottom: 2px solid var(--bordeaux);
+            padding-bottom: 4px;
+        }
+
+        /* ---------- HERO SECTION ---------- */
+        .hero {
+            background: linear-gradient(135deg, #2d1b15 0%, #4a2a20 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--ocre), var(--bordeaux));
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 650px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* ---------- SECTION ÉVÉNEMENTS ---------- */
+        .section-evenements {
+            max-width: 1300px;
+            margin: 2rem auto 3rem;
+            padding: 0 5%;
+        }
+
+        .section-titre {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--bordeaux);
+            margin-bottom: 2.5rem;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-titre:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--ocre);
+            margin: 15px auto 0;
+            border-radius: 3px;
+        }
+
+        .grid-evenements {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 2rem;
+        }
+
+        .event-carte {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--ombre);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-carte:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 45px -15px rgba(0,0,0,0.2);
+        }
+
+        .event-carte img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .event-carte:hover img {
+            transform: scale(1.03);
+        }
+
+        .event-container {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-container h3 {
+            font-size: 1.5rem;
+            color: var(--bordeaux);
+            margin-bottom: 0.5rem;
+        }
+
+        .event-date-lieu {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: var(--gris-chaud);
+            margin-bottom: 1rem;
+        }
+
+        .event-date-lieu i {
+            color: var(--ocre);
+            width: 20px;
+        }
+
+        .btn-primary {
+            background: var(--bordeaux);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            margin-top: 1.2rem;
+            transition: var(--transition);
+            cursor: pointer;
+            align-self: flex-start;
+        }
+
+        .btn-primary:hover {
+            background: var(--bordeaux-fonce);
+            transform: scale(0.96);
+        }
+
+        /* Bannière "Dream City Festival" */
+        .festival-banner {
+            background: linear-gradient(120deg, #1e2a2e, #2b3b3f);
+            margin: 3rem 5% 2rem;
+            border-radius: 40px;
+            padding: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            box-shadow: var(--ombre);
+        }
+
+        .festival-banner h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .festival-banner p {
+            opacity: 0.85;
+        }
+
+        .btn-outline-light {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .btn-outline-light:hover {
+            background: white;
+            color: var(--bordeaux);
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--cafe);
+            color: #e4d5c3;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .site-footer a {
+            color: var(--ocre);
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .burger {
+                display: flex;
+            }
+            .main-nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 70%;
+                height: calc(100vh - 70px);
+                background: white;
+                box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+                transition: 0.3s;
+                z-index: 99;
+                padding: 2rem;
+            }
+            #menu-toggle:checked ~ .main-nav {
+                left: 0;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .hero h2 {
+                font-size: 2rem;
+            }
+            .section-titre {
+                font-size: 1.8rem;
+            }
+            .festival-banner {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="logo">
+        <img src="images/logo.png" alt="Club Culturel El Medina" onerror="this.src='https://placehold.co/50x50?text=CCEM'">
+        <h1>Club Culturel El Medina</h1>
+    </div>
+    <input type="checkbox" id="menu-toggle" hidden>
+    <label for="menu-toggle" class="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="home.html" class="active">Accueil</a></li>
+            <li><a href="index.html">Connexion</a></li>
+            <li><a href="event-details.html">Événements</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="register-event.html">Inscription événement</a></li>
+            <li><a href="galerie.html">Galerie</a></li>
+            <li><a href="adhesion.html">Adhésion</a></li>
+            <li><a href="calendrier.html">Calendrier</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="hero">
+        <h2>Bienvenue au Club Culturel El Medina</h2>
+        <p>Découvrez nos événements culturels à Tunis et vivez des expériences uniques entre traditions et modernité.</p>
+    </div>
+
+    <section class="section-evenements">
+        <h2 class="section-titre">Événements à venir</h2>
+        <div class="grid-evenements" id="events-grid">
+            <!-- Les cartes seront injectées dynamiquement par JS -->
+        </div>
+    </section>
+
+    <div class="festival-banner">
+        <div>
+            <h3><i class="fas fa-city"></i> Dream City Festival in the City</h3>
+            <p>Du 15 au 25 novembre 2026 – Un parcours artistique au cœur de la Médina de Tunis.<br> Spectacles, expositions, performances urbaines.</p>
+        </div>
+        <a href="#" class="btn-outline-light">Réserver <i class="fas fa-ticket-alt"></i></a>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <p>© 2026 Club Culturel El Medina – Tunis | Tous droits réservés</p>
+    <p>
+        <a href="contact.html">Nous contacter</a> |
+        <a href="about.html">À propos</a> |
+        <a href="galerie.html">Galerie</a>
+    </p>
+</footer>
+
+<script>
+    // Données des événements (même source que votre script.js)
+    const evenements = [
+        { id: 1, titre: "Les Voix de la Paix", date: "08 Oct. 2025", lieu: "Tunis", image: "images/img1.webp", description: "Soirée artistique.", places: "50" },
+        { id: 2, titre: "Les Belles de Carthage", date: "12 Oct. 2025", lieu: "El Kram", image: "images/img2.webp", description: "Patrimoine tunisien.", places: "80" },
+        { id: 3, titre: "Vampire Cup", date: "06 Oct. 2025", lieu: "Monastir", image: "images/img3.webp", description: "Compétition stratégique.", places: "30" },
+        { id: 4, titre: "Health & Olive Day", date: "07 Oct. 2025", lieu: "Monastir", image: "images/img4.webp", description: "Santé et terroir.", places: "100" }
+    ];
+
+    // Remplir la grille d'événements
+    const grid = document.getElementById('events-grid');
+    if (grid) {
+        grid.innerHTML = evenements.map(ev => `
+            <article class="event-carte">
+                <img src="${ev.image}" alt="${ev.titre}" onerror="this.src='https://picsum.photos/400/250?random=${ev.id}'">
+                <div class="event-container">
+                    <h3>${ev.titre}</h3>
+                    <div class="event-date-lieu">
+                        <span><i class="far fa-calendar-alt"></i> ${ev.date}</span>
+                        <span><i class="fas fa-map-marker-alt"></i> ${ev.lieu}</span>
+                    </div>
+                    <p>${ev.description}</p>
+                    <a href="event-details.html?id=${ev.id}" class="btn-primary">Détails</a>
+                </div>
+            </article>
+        `).join('');
+    }
+</script>
+</body>
+</html>

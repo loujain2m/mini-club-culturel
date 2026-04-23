@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription événement - Club Culturel El Medina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bordeaux: #9b2c2a;
+            --bordeaux-fonce: #7a221f;
+            --ocre: #d4a373;
+            --cafe: #2d1b15;
+            --creme: #fef9f0;
+            --gris-chaud: #5e4b3c;
+            --ombre: 0 20px 35px -10px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--creme);
+            color: var(--cafe);
+            line-height: 1.5;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* HEADER */
+        .site-header {
+            background: white;
+            padding: 0.8rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: auto;
+        }
+
+        .logo h1 {
+            font-size: 1.4rem;
+            color: var(--bordeaux);
+        }
+
+        #menu-toggle {
+            display: none;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .burger span {
+            width: 28px;
+            height: 3px;
+            background: var(--bordeaux);
+            border-radius: 3px;
+        }
+
+        .main-nav ul {
+            display: flex;
+            gap: 1.8rem;
+            list-style: none;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--cafe);
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            color: var(--bordeaux);
+            border-bottom: 2px solid var(--bordeaux);
+            padding-bottom: 4px;
+        }
+
+        /* MAIN CONTENT */
+        .register-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 5%;
+        }
+
+        .event-preview {
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: var(--ombre);
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .event-image {
+            flex: 1;
+            min-width: 200px;
+            background: #f0e6dc;
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            min-height: 200px;
+        }
+
+        .event-info-preview {
+            flex: 2;
+            padding: 1.5rem;
+        }
+
+        .event-info-preview h2 {
+            font-size: 1.8rem;
+            color: var(--bordeaux);
+            margin-bottom: 0.5rem;
+        }
+
+        .event-info-preview p {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+            color: var(--gris-chaud);
+        }
+
+        .badge-places {
+            background: var(--ocre);
+            color: var(--cafe);
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* FORMULAIRE */
+        .form-card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: var(--ombre);
+            padding: 2rem;
+        }
+
+        .form-card h3 {
+            font-size: 1.6rem;
+            color: var(--bordeaux);
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--ocre);
+            padding-left: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--cafe);
+        }
+
+        label i {
+            color: var(--ocre);
+            width: 24px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e2d5c8;
+            border-radius: 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #fffdfa;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--bordeaux);
+            box-shadow: 0 0 0 3px rgba(155,44,42,0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .message {
+            padding: 1rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            display: none;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .btn-submit {
+            background: var(--bordeaux);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            background: var(--bordeaux-fonce);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background: var(--cafe);
+            color: #e4d5c3;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: var(--ocre);
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .burger {
+                display: flex;
+            }
+            .main-nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 70%;
+                height: calc(100vh - 70px);
+                background: white;
+                box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+                transition: 0.3s;
+                z-index: 99;
+                padding: 2rem;
+            }
+            #menu-toggle:checked ~ .main-nav {
+                left: 0;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .event-preview {
+                flex-direction: column;
+            }
+            .form-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="logo">
+        <img src="images/logo.png" alt="Club Culturel El Medina" onerror="this.src='https://placehold.co/50x50?text=CCEM'">
+        <h1>Club Culturel El Medina</h1>
+    </div>
+    <input type="checkbox" id="menu-toggle" hidden>
+    <label for="menu-toggle" class="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="home.html">Accueil</a></li>
+            <li><a href="index.html">Connexion</a></li>
+            <li><a href="event-details.html">Événements</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="register-event.html" class="active">Inscription événement</a></li>
+            <li><a href="galerie.html">Galerie</a></li>
+            <li><a href="adhesion.html">Adhésion</a></li>
+            <li><a href="calendrier.html">Calendrier</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="register-container">
+    <div class="event-preview" id="eventPreview">
+        <!-- Dynamiquement rempli par JS -->
+        <div class="event-image">
+            <img id="event-image" src="" alt="Image de l'événement">
+        </div>
+        <div class="event-info-preview">
+            <h2 id="event-title">Inscription événement</h2>
+            <p><i class="fas fa-calendar-alt"></i> <span id="event-date"></span> &nbsp;|&nbsp; <i class="fas fa-map-marker-alt"></i> <span id="event-lieu"></span> &nbsp;|&nbsp; <span id="event-places" class="badge-places"></span></p>
+        </div>
+    </div>
+
+    <div class="form-card">
+        <h3><i class="fas fa-pen-alt"></i> Remplissez vos informations</h3>
+        <form id="register-form" novalidate>
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> Nom complet</label>
+                <input type="text" id="nom" placeholder="Votre nom et prénom" required>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-envelope"></i> Email</label>
+                <input type="email" id="email" placeholder="ex: user@club.tn" required>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-phone"></i> Téléphone</label>
+                <input type="tel" id="telephone" placeholder="12345678" required>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-ticket-alt"></i> Nombre de places</label>
+                <input type="number" id="places" min="1" max="10" value="1" required>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-comment"></i> Remarques (optionnel)</label>
+                <textarea id="message" placeholder="Votre message..."></textarea>
+            </div>
+
+            <div id="success-message" class="message success"></div>
+            <div id="error-message" class="message error"></div>
+
+            <button type="submit" class="btn-submit"><i class="fas fa-check-circle"></i> S'inscrire</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Club Culturel El Medina – Tunis | Tous droits réservés</p>
+    <p><a href="contact.html">Nous contacter</a> | <a href="about.html">À propos</a> | <a href="galerie.html">Galerie</a></p>
+</footer>
+
+<script>
+    // Base de données des événements (identique aux autres pages)
+    const evenements = [
+        { id: 1, titre: "Les Voix de la Paix", date: "08 Oct. 2025", lieu: "Tunis", image: "images/img1.webp", description: "Soirée artistique.", places: "50" },
+        { id: 2, titre: "Les Belles de Carthage", date: "12 Oct. 2025", lieu: "El Kram", image: "images/img2.webp", description: "Patrimoine tunisien.", places: "80" },
+        { id: 3, titre: "Vampire Cup", date: "06 Oct. 2025", lieu: "Monastir", image: "images/img3.webp", description: "Compétition stratégique.", places: "30" },
+        { id: 4, titre: "Health & Olive Day", date: "07 Oct. 2025", lieu: "Monastir", image: "images/img4.webp", description: "Santé et terroir.", places: "100" }
+    ];
+
+    // Chargement dynamique de l'événement depuis l'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const eventId = parseInt(urlParams.get('id'));
+    const event = evenements.find(e => e.id === eventId);
+
+    // Éléments du DOM
+    const titleEl = document.getElementById("event-title");
+    const imgEl = document.getElementById("event-image");
+    const dateEl = document.getElementById("event-date");
+    const lieuEl = document.getElementById("event-lieu");
+    const placesSpan = document.getElementById("event-places");
+
+    if (event && titleEl && imgEl) {
+        titleEl.textContent = `Inscription : ${event.titre}`;
+        imgEl.src = event.image;
+        imgEl.alt = event.titre;
+        if (dateEl) dateEl.textContent = event.date;
+        if (lieuEl) lieuEl.textContent = event.lieu;
+        if (placesSpan) placesSpan.textContent = `🎟 ${event.places} places disponibles`;
+    } else {
+        titleEl.textContent = "Événement non trouvé";
+        imgEl.src = "https://placehold.co/600x400?text=Image+indisponible";
+        if (placesSpan) placesSpan.textContent = "Places inconnues";
+    }
+
+    // Gestion du formulaire d'inscription
+    const form = document.getElementById("register-form");
+    if (form) {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            const nom = document.getElementById("nom").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const tel = document.getElementById("telephone").value.trim();
+            const places = document.getElementById("places").value;
+            const remarques = document.getElementById("message").value.trim();
+
+            const successDiv = document.getElementById("success-message");
+            const errorDiv = document.getElementById("error-message");
+
+            // Validation
+            if (nom.length >= 3 && email.includes("@") && /^\d{8}$/.test(tel)) {
+                // Récupérer les inscriptions existantes
+                let inscriptions = JSON.parse(localStorage.getItem("inscriptions") || "[]");
+                
+                // Trouver le nom de l'événement (via eventId)
+                const ev = evenements.find(e => e.id === eventId);
+                const eventName = ev ? ev.titre : "Événement inconnu";
+                
+                // Ajouter la nouvelle inscription
+                inscriptions.push({
+                    id: Date.now(),
+                    nom: nom,
+                    email: email,
+                    telephone: tel,
+                    places: places,
+                    event: eventName,
+                    remarques: remarques || ""
+                });
+                
+                localStorage.setItem("inscriptions", JSON.stringify(inscriptions));
+                
+                // Afficher succès
+                successDiv.textContent = "✅ Inscription enregistrée avec succès ! Redirection vers votre profil...";
+                successDiv.style.display = "block";
+                errorDiv.style.display = "none";
+                
+                // Redirection après 1.5 secondes
+                setTimeout(() => {
+                    window.location.href = "profile.html";
+                }, 1500);
+            } else {
+                // Afficher erreur
+                let msg = "❌ Vérifiez les champs :\n";
+                if (nom.length < 3) msg += "- Nom complet (minimum 3 caractères)\n";
+                if (!email.includes("@")) msg += "- Email invalide (doit contenir @)\n";
+                if (!/^\d{8}$/.test(tel)) msg += "- Téléphone doit comporter exactement 8 chiffres\n";
+                errorDiv.textContent = msg.replace(/\n/g, "<br>");
+                errorDiv.style.display = "block";
+                successDiv.style.display = "none";
+            }
+        });
+    }
+
+    // Vérification de la connexion (optionnelle, vous pouvez la laisser ou la retirer selon votre logique)
+    document.addEventListener("DOMContentLoaded", function() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        if (!isLoggedIn) {
+            // Si non connecté, on peut rediriger vers index.html
+            // Mais vous pouvez aussi laisser l'inscription ouverte, à vous de voir.
+            // Pour suivre votre logique initiale, on redirige :
+            window.location.href = "index.html";
+        }
+    });
+</script>
+</body>
+</html>

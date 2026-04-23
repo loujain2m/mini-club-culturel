@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendrier - Club Culturel El Medina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bordeaux: #9b2c2a;
+            --bordeaux-fonce: #7a221f;
+            --ocre: #d4a373;
+            --cafe: #2d1b15;
+            --creme: #fef9f0;
+            --gris-chaud: #5e4b3c;
+            --ombre: 0 20px 35px -10px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--creme);
+            color: var(--cafe);
+            line-height: 1.5;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* HEADER */
+        .site-header {
+            background: white;
+            padding: 0.8rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: auto;
+        }
+
+        .logo h1 {
+            font-size: 1.4rem;
+            color: var(--bordeaux);
+        }
+
+        #menu-toggle {
+            display: none;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .burger span {
+            width: 28px;
+            height: 3px;
+            background: var(--bordeaux);
+            border-radius: 3px;
+        }
+
+        .main-nav ul {
+            display: flex;
+            gap: 1.8rem;
+            list-style: none;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--cafe);
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            color: var(--bordeaux);
+            border-bottom: 2px solid var(--bordeaux);
+            padding-bottom: 4px;
+        }
+
+        /* MAIN CONTENT */
+        .calendrier-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 5%;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero-section h2 {
+            font-size: 2.5rem;
+            color: var(--bordeaux);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-section p {
+            color: var(--gris-chaud);
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Timeline / carte événements */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: var(--ombre);
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 40px -15px rgba(0,0,0,0.2);
+        }
+
+        .event-date {
+            background: linear-gradient(135deg, var(--bordeaux), var(--cafe));
+            color: white;
+            min-width: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .event-date .day {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .event-date .month {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .event-date .year {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .event-content {
+            flex: 1;
+            padding: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .event-info h3 {
+            font-size: 1.4rem;
+            color: var(--bordeaux);
+            margin-bottom: 0.5rem;
+        }
+
+        .event-info p {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gris-chaud);
+            margin-bottom: 0.25rem;
+        }
+
+        .event-info i {
+            color: var(--ocre);
+            width: 24px;
+        }
+
+        .btn-detail {
+            background: transparent;
+            border: 2px solid var(--bordeaux);
+            color: var(--bordeaux);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-detail:hover {
+            background: var(--bordeaux);
+            color: white;
+        }
+
+        /* Bannière membre */
+        .membership-banner {
+            background: linear-gradient(120deg, #fcf3e8, #faeedf);
+            border-radius: 32px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .membership-banner h3 {
+            font-size: 1.8rem;
+            color: var(--cafe);
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-membre {
+            background: var(--bordeaux);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1rem;
+            transition: var(--transition);
+        }
+
+        .btn-membre:hover {
+            background: var(--bordeaux-fonce);
+            transform: scale(0.98);
+        }
+
+        footer {
+            background: var(--cafe);
+            color: #e4d5c3;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: var(--ocre);
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .burger {
+                display: flex;
+            }
+            .main-nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 70%;
+                height: calc(100vh - 70px);
+                background: white;
+                box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+                transition: 0.3s;
+                z-index: 99;
+                padding: 2rem;
+            }
+            #menu-toggle:checked ~ .main-nav {
+                left: 0;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .event-card {
+                flex-direction: column;
+            }
+            .event-date {
+                flex-direction: row;
+                justify-content: space-around;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .event-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            .hero-section h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="logo">
+        <img src="images/logo.png" alt="Club Culturel El Medina" onerror="this.src='https://placehold.co/50x50?text=CCEM'">
+        <h1>Club Culturel El Medina</h1>
+    </div>
+    <input type="checkbox" id="menu-toggle" hidden>
+    <label for="menu-toggle" class="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="home.html">Accueil</a></li>
+            <li><a href="index.html">Connexion</a></li>
+            <li><a href="event-details.html">Événements</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="register-event.html">Inscription événement</a></li>
+            <li><a href="galerie.html">Galerie</a></li>
+            <li><a href="adhesion.html">Adhésion</a></li>
+            <li><a href="calendrier.html" class="active">Calendrier</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="calendrier-container">
+    <div class="hero-section">
+        <h2><i class="fas fa-calendar-alt"></i> Calendrier des événements 2026</h2>
+        <p>Voici le planning de nos événements culturels à venir. Cliquez sur "Voir détails" pour plus d'informations.</p>
+    </div>
+
+    <div class="timeline" id="calendrier-list">
+        <!-- Les événements seront injectés dynamiquement -->
+        <div style="text-align: center; padding: 2rem;">Chargement des événements...</div>
+    </div>
+
+    <div class="membership-banner">
+        <h3><i class="fas fa-hand-peace"></i> Envie de rejoindre ?</h3>
+        <p>Devenez membre du Club Culturel El Medina et profitez d'avantages exclusifs !</p>
+        <a href="adhesion.html" class="btn-membre"><i class="fas fa-id-card"></i> Devenir membre</a>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Club Culturel El Medina – Tunis | Tous droits réservés</p>
+    <p><a href="contact.html">Nous contacter</a> | <a href="about.html">À propos</a> | <a href="galerie.html">Galerie</a></p>
+</footer>
+
+<script>
+    // Base de données des événements (identique à home.html, event-details.html, register-event.html)
+    const evenements = [
+        { id: 1, titre: "Les Voix de la Paix", date: "08 Oct. 2025", lieu: "Tunis", image: "images/img1.webp", description: "Soirée artistique.", places: "50" },
+        { id: 2, titre: "Les Belles de Carthage", date: "12 Oct. 2025", lieu: "El Kram", image: "images/img2.webp", description: "Patrimoine tunisien.", places: "80" },
+        { id: 3, titre: "Vampire Cup", date: "06 Oct. 2025", lieu: "Monastir", image: "images/img3.webp", description: "Compétition stratégique.", places: "30" },
+        { id: 4, titre: "Health & Olive Day", date: "07 Oct. 2025", lieu: "Monastir", image: "images/img4.webp", description: "Santé et terroir.", places: "100" },
+        // Ajout des événements spécifiques au calendrier (année 2026)
+        { id: 5, titre: "ASBU Radio & TV Festival & Convention", date: "07 Juin 2026", lieu: "Hammamet", image: "images/img5.webp", description: "Festival radiophonique et télévisuel international.", places: "200" },
+        { id: 6, titre: "Festival culturel « Ramadan à la Cité »", date: "17 Mars 2026", lieu: "Cité de la culture à Tunis", image: "images/img6.webp", description: "Célébration du Ramadan dans la Cité de la culture.", places: "150" },
+        { id: 7, titre: "TUNIART", date: "18 Oct. 2026", lieu: "Chenini Gabès", image: "images/img7.webp", description: "Festival d'art contemporain dans le sud tunisien.", places: "120" }
+    ];
+
+    // Fonction pour parser une date au format "DD Mon. YYYY" ou "DD Mois YYYY" et retourner un objet Date
+    function parseDate(dateStr) {
+        const mois = {
+            'Jan.': 0, 'Fév.': 1, 'Mar.': 2, 'Avr.': 3, 'Mai': 4, 'Juin': 5,
+            'Juillet': 6, 'Août': 7, 'Sept.': 8, 'Oct.': 9, 'Nov.': 10, 'Déc.': 11,
+            'Janvier': 0, 'Février': 1, 'Mars': 2, 'Avril': 3, 'Mai': 4, 'Juin': 5,
+            'Juillet': 6, 'Août': 7, 'Septembre': 8, 'Octobre': 9, 'Novembre': 10, 'Décembre': 11
+        };
+        let parts = dateStr.split(' ');
+        let day = parseInt(parts[0]);
+        let monthStr = parts[1];
+        let year = parseInt(parts[2]);
+        let month = mois[monthStr];
+        if (month === undefined) month = 0;
+        return new Date(year, month, day);
+    }
+
+    // Trier les événements par date (du plus proche au plus lointain, mais on garde ordre chronologique)
+    const eventsSorted = [...evenements].sort((a,b) => parseDate(a.date) - parseDate(b.date));
+
+    // Générer l'affichage
+    const container = document.getElementById('calendrier-list');
+    if (container) {
+        if (eventsSorted.length === 0) {
+            container.innerHTML = '<div style="text-align:center; padding:2rem;">Aucun événement planifié pour le moment.</div>';
+        } else {
+            container.innerHTML = eventsSorted.map(ev => {
+                // Extraire jour, mois, année pour l'affichage
+                const dateParts = ev.date.split(' ');
+                const day = dateParts[0];
+                const month = dateParts[1];
+                const year = dateParts[2];
+                return `
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="day">${day}</span>
+                            <span class="month">${month}</span>
+                            <span class="year">${year}</span>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-info">
+                                <h3>${ev.titre}</h3>
+                                <p><i class="fas fa-map-marker-alt"></i> Lieu : ${ev.lieu}</p>
+                                <p><i class="fas fa-ticket-alt"></i> ${ev.places} places disponibles</p>
+                            </div>
+                            <a href="event-details.html?id=${ev.id}" class="btn-detail">Voir détails <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    }
+
+    // Gestion du menu burger (aucun script supplémentaire nécessaire, le CSS gère l'affichage)
+</script>
+</body>
+</html>

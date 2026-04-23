@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon profil - Club Culturel El Medina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bordeaux: #9b2c2a;
+            --bordeaux-fonce: #7a221f;
+            --ocre: #d4a373;
+            --cafe: #2d1b15;
+            --creme: #fef9f0;
+            --gris-chaud: #5e4b3c;
+            --ombre: 0 20px 35px -10px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--creme);
+            color: var(--cafe);
+            line-height: 1.5;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* HEADER */
+        .site-header {
+            background: white;
+            padding: 0.8rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: auto;
+        }
+
+        .logo h1 {
+            font-size: 1.4rem;
+            color: var(--bordeaux);
+        }
+
+        #menu-toggle {
+            display: none;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .burger span {
+            width: 28px;
+            height: 3px;
+            background: var(--bordeaux);
+            border-radius: 3px;
+        }
+
+        .main-nav ul {
+            display: flex;
+            gap: 1.8rem;
+            list-style: none;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--cafe);
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            color: var(--bordeaux);
+            border-bottom: 2px solid var(--bordeaux);
+            padding-bottom: 4px;
+        }
+
+        /* MAIN CONTENT */
+        .profile-container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 5%;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: var(--ombre);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, var(--bordeaux), var(--cafe));
+            padding: 2rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .avatar {
+            background: var(--ocre);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--cafe);
+        }
+
+        .profile-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-info p {
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .inscriptions-section {
+            background: white;
+            border-radius: 32px;
+            box-shadow: var(--ombre);
+            padding: 2rem;
+        }
+
+        .inscriptions-section h3 {
+            font-size: 1.6rem;
+            color: var(--bordeaux);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid var(--ocre);
+            padding-left: 15px;
+        }
+
+        #inscriptions-list {
+            margin-bottom: 2rem;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 2rem;
+            background: #f9f3ec;
+            border-radius: 24px;
+            color: var(--gris-chaud);
+        }
+
+        .btn-logout {
+            background: var(--cafe);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .btn-logout:hover {
+            background: var(--bordeaux-fonce);
+            transform: translateY(-2px);
+        }
+
+        /* Style pour les items d'inscription (déjà défini dans script.js, mais renforcé) */
+        .inscription-item {
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff7f0;
+            padding: 15px 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+        .inscription-item:hover {
+            transform: translateX(5px);
+            background: white;
+        }
+        .inscription-info strong {
+            color: var(--bordeaux);
+        }
+        .btn-supprimer {
+            background: #820c0a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .btn-supprimer:hover {
+            background: #a00;
+            transform: scale(0.96);
+        }
+
+        footer {
+            background: var(--cafe);
+            color: #e4d5c3;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        footer a {
+            color: var(--ocre);
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .burger {
+                display: flex;
+            }
+            .main-nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 70%;
+                height: calc(100vh - 70px);
+                background: white;
+                box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+                transition: 0.3s;
+                z-index: 99;
+                padding: 2rem;
+            }
+            #menu-toggle:checked ~ .main-nav {
+                left: 0;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="logo">
+        <img src="images/logo.png" alt="Club Culturel El Medina" onerror="this.src='https://placehold.co/50x50?text=CCEM'">
+        <h1>Club Culturel El Medina</h1>
+    </div>
+    <input type="checkbox" id="menu-toggle" hidden>
+    <label for="menu-toggle" class="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="home.html">Accueil</a></li>
+            <li><a href="index.html">Connexion</a></li>
+            <li><a href="event-details.html">Événements</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="profile.html" class="active">Profile</a></li>
+            <li><a href="register-event.html">Inscription événement</a></li>
+            <li><a href="galerie.html">Galerie</a></li>
+            <li><a href="adhesion.html">Adhésion</a></li>
+            <li><a href="calendrier.html">Calendrier</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="profile-container">
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="avatar" id="user-avatar">
+                <i class="fas fa-user-circle fa-3x"></i>
+            </div>
+            <div class="profile-info">
+                <h2>Mon profil</h2>
+                <p><i class="fas fa-envelope"></i> <span id="user-email">chargement...</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="inscriptions-section">
+        <h3><i class="fas fa-ticket-alt"></i> Mes inscriptions</h3>
+        <div id="inscriptions-list">
+            <!-- La liste dynamique sera injectée ici -->
+            <div class="empty-message">Chargement de vos inscriptions...</div>
+        </div>
+        <button onclick="logout()" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Se déconnecter</button>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 Club Culturel El Medina – Tunis | Tous droits réservés</p>
+    <p><a href="contact.html">Nous contacter</a> | <a href="about.html">À propos</a> | <a href="galerie.html">Galerie</a></p>
+</footer>
+
+<script>
+    // ========== FONCTIONS GLOBALES (compatibles avec script.js existant) ==========
+    function refreshProfile() {
+        const listDiv = document.getElementById("inscriptions-list");
+        if (!listDiv) return;
+
+        const data = JSON.parse(localStorage.getItem("inscriptions") || "[]");
+
+        if (data.length === 0) {
+            listDiv.innerHTML = '<div class="empty-message"><i class="fas fa-calendar-times"></i> Aucune inscription trouvée. <a href="home.html" style="color: var(--bordeaux);">Découvrez nos événements</a></div>';
+        } else {
+            listDiv.innerHTML = data.map(i => `
+                <div class="inscription-item">
+                    <div class="inscription-info">
+                        <strong>${escapeHtml(i.event)}</strong> - ${escapeHtml(i.nom)} (${i.places} place${i.places > 1 ? 's' : ''})
+                        <div style="font-size: 0.8rem; color: #7f6b5c;">📧 ${escapeHtml(i.email)}</div>
+                    </div>
+                    <button onclick="supprimerInscription(${i.id})" class="btn-supprimer"><i class="fas fa-trash-alt"></i> Supprimer</button>
+                </div>
+            `).join('');
+        }
+    }
+
+    function supprimerInscription(idUnique) {
+        if (confirm("Voulez-vous vraiment supprimer cette inscription ?")) {
+            let inscriptions = JSON.parse(localStorage.getItem("inscriptions") || "[]");
+            inscriptions = inscriptions.filter(item => item.id !== idUnique);
+            localStorage.setItem("inscriptions", JSON.stringify(inscriptions));
+            refreshProfile();
+        }
+    }
+
+    function logout() {
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("user");
+        window.location.href = "index.html";
+    }
+
+    // Petite fonction de sécurité pour éviter les injections XSS
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+            return c;
+        });
+    }
+
+    // Chargement des données utilisateur et des inscriptions
+    document.addEventListener("DOMContentLoaded", function() {
+        // Vérification de la connexion (redirection si non logué)
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        if (!isLoggedIn) {
+            window.location.href = "index.html";
+            return;
+        }
+
+        // Afficher l'email de l'utilisateur
+        const user = JSON.parse(localStorage.getItem("user"));
+        const emailSpan = document.getElementById("user-email");
+        if (user && emailSpan) {
+            emailSpan.textContent = user.email;
+        } else {
+            emailSpan.textContent = "utilisateur@club.tn";
+        }
+
+        // Afficher la liste des inscriptions
+        refreshProfile();
+    });
+</script>
+</body>
+</html>

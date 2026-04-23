@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détail événement - Club Culturel El Medina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bordeaux: #9b2c2a;
+            --bordeaux-fonce: #7a221f;
+            --ocre: #d4a373;
+            --cafe: #2d1b15;
+            --creme: #fef9f0;
+            --gris-chaud: #5e4b3c;
+            --ombre: 0 20px 30px -12px rgba(0,0,0,0.12);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--creme);
+            color: var(--cafe);
+            line-height: 1.5;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* HEADER */
+        .site-header {
+            background: white;
+            padding: 0.8rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: auto;
+        }
+
+        .logo h1 {
+            font-size: 1.4rem;
+            color: var(--bordeaux);
+        }
+
+        #menu-toggle {
+            display: none;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .burger span {
+            width: 28px;
+            height: 3px;
+            background: var(--bordeaux);
+            border-radius: 3px;
+        }
+
+        .main-nav ul {
+            display: flex;
+            gap: 1.8rem;
+            list-style: none;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            font-weight: 500;
+            color: var(--cafe);
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .main-nav a:hover {
+            color: var(--bordeaux);
+            border-bottom: 2px solid var(--bordeaux);
+            padding-bottom: 4px;
+        }
+
+        /* MAIN CONTENT */
+        .detail-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 5%;
+        }
+
+        .event-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: var(--ombre);
+        }
+
+        .event-image {
+            flex: 1.2;
+            min-width: 280px;
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .event-info {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .event-info h1 {
+            font-size: 2.5rem;
+            color: var(--bordeaux);
+            margin-bottom: 0.5rem;
+        }
+
+        .orchestre {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--ocre);
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .meta-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 1rem 0;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .meta-item i {
+            width: 24px;
+            color: var(--bordeaux);
+            font-size: 1.2rem;
+        }
+
+        .artistiques {
+            background: #fcf6ef;
+            padding: 1.2rem;
+            border-radius: 24px;
+            margin: 1.5rem 0;
+        }
+
+        .artistiques p {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .artistiques i {
+            color: var(--ocre);
+            width: 28px;
+        }
+
+        .btn-inscription {
+            background: var(--bordeaux);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .btn-inscription:hover {
+            background: var(--bordeaux-fonce);
+            transform: scale(0.98);
+        }
+
+        .lieu-date-specifique {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            box-shadow: var(--ombre);
+        }
+
+        .card-lieu, .card-horaire {
+            flex: 1;
+            text-align: center;
+        }
+
+        .card-lieu h3, .card-horaire h3 {
+            color: var(--bordeaux);
+            margin-bottom: 0.5rem;
+        }
+
+        .places-restantes {
+            background: var(--ocre);
+            color: var(--cafe);
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        footer {
+            background: var(--cafe);
+            color: #e4d5c3;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: var(--ocre);
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .burger {
+                display: flex;
+            }
+            .main-nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 70%;
+                height: calc(100vh - 70px);
+                background: white;
+                box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+                transition: 0.3s;
+                z-index: 99;
+                padding: 2rem;
+            }
+            #menu-toggle:checked ~ .main-nav {
+                left: 0;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .event-header {
+                flex-direction: column;
+            }
+            .lieu-date-specifique {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="logo">
+        <img src="images/logo.png" alt="Club Culturel El Medina" onerror="this.src='https://placehold.co/50x50?text=CCEM'">
+        <h1>Club Culturel El Medina</h1>
+    </div>
+    <input type="checkbox" id="menu-toggle" hidden>
+    <label for="menu-toggle" class="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="home.html">Accueil</a></li>
+            <li><a href="index.html">Connexion</a></li>
+            <li><a href="event-details.html">Événements</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="register-event.html">Inscription événement</a></li>
+            <li><a href="galerie.html">Galerie</a></li>
+            <li><a href="adhesion.html">Adhésion</a></li>
+            <li><a href="calendrier.html">Calendrier</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="detail-container" id="detail-container">
+    <!-- Le contenu sera injecté dynamiquement via JS -->
+    <div style="text-align: center; padding: 3rem;">Chargement des détails...</div>
+</main>
+
+<footer>
+    <p>© 2026 Club Culturel El Medina – Tunis | Tous droits réservés</p>
+    <p><a href="contact.html">Nous contacter</a> | <a href="about.html">À propos</a> | <a href="galerie.html">Galerie</a></p>
+</footer>
+
+<script>
+    // Base de données des événements (identique à celle de home.html)
+    const evenements = [
+        { 
+            id: 1, 
+            titre: "Les Voix de la Paix", 
+            date: "08 Oct. 2025", 
+            lieu: "Tunis", 
+            image: "images/img1.webp", 
+            description: "Un événement musical qui rassemble des artistes pour promouvoir la paix et la culture.", 
+            places: "50",
+            // Données enrichies pour coller à l'image
+            orchestre: "CARTHAGE SYMPHONY ORCHESTRA",
+            direction: "HAFEDH MAKNI",
+            chefChoeur: "MOURAD GAALOUL",
+            hommage: "Salah El Mahdi",
+            theatre: "Théâtre Municipal de Tunis",
+            heure: "20H00",
+            jourSemaine: "Mercredi"
+        },
+        { 
+            id: 2, 
+            titre: "Les Belles de Carthage", 
+            date: "12 Oct. 2025", 
+            lieu: "El Kram", 
+            image: "images/img2.webp", 
+            description: "Patrimoine tunisien : danses, costumes et mélodies traditionnelles.", 
+            places: "80",
+            orchestre: "Ensemble Tunisien de Musique Andalouse",
+            direction: "Mohamed Baccouche",
+            chefChoeur: "Salma Rezgui",
+            hommage: "Khemaïs Tarnane",
+            theatre: "Théâtre de verdure d'El Kram",
+            heure: "19H30",
+            jourSemaine: "Samedi"
+        },
+        { 
+            id: 3, 
+            titre: "Vampire Cup", 
+            date: "06 Oct. 2025", 
+            lieu: "Monastir", 
+            image: "images/img3.webp", 
+            description: "Compétition stratégique de jeux de cartes et d'énigmes. Ambiance mystérieuse.", 
+            places: "30",
+            orchestre: null,
+            direction: "Club Ludique Monastir",
+            chefChoeur: null,
+            hommage: null,
+            theatre: "Salle des congrès",
+            heure: "14H00",
+            jourSemaine: "Lundi"
+        },
+        { 
+            id: 4, 
+            titre: "Health & Olive Day", 
+            date: "07 Oct. 2025", 
+            lieu: "Monastir", 
+            image: "images/img4.webp", 
+            description: "Santé et terroir : ateliers bien-être, dégustation d'huile d'olive.", 
+            places: "100",
+            orchestre: null,
+            direction: "Association Oléicole",
+            chefChoeur: null,
+            hommage: null,
+            theatre: "Parc des Oliviers",
+            heure: "10H00",
+            jourSemaine: "Mardi"
+        }
+    ];
+
+    // Récupérer l'ID depuis l'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = parseInt(urlParams.get('id'));
+    const event = evenements.find(e => e.id === id);
+
+    const container = document.getElementById('detail-container');
+
+    if (!event) {
+        container.innerHTML = `<div style="text-align:center; padding:3rem;"><h2>Événement non trouvé</h2><a href="home.html" class="btn-inscription">Retour à l'accueil</a></div>`;
+    } else {
+        // Construction de la vue détaillée
+        let artistiqueHtml = '';
+        if (event.orchestre || event.direction || event.chefChoeur || event.hommage) {
+            artistiqueHtml = `
+                <div class="artistiques">
+                    ${event.orchestre ? `<p><i class="fas fa-music"></i> <strong>Orchestre :</strong> ${event.orchestre}</p>` : ''}
+                    ${event.direction ? `<p><i class="fas fa-baton"></i> <strong>Direction :</strong> ${event.direction}</p>` : ''}
+                    ${event.chefChoeur ? `<p><i class="fas fa-users"></i> <strong>Chef de Chœur :</strong> ${event.chefChoeur}</p>` : ''}
+                    ${event.hommage ? `<p><i class="fas fa-crown"></i> <strong>Hommage à :</strong> ${event.hommage}</p>` : ''}
+                </div>
+            `;
+        }
+
+        // Extraction du jour et mois pour l'affichage style "08 Mercredi Octobre"
+        const dateParts = event.date.split(' ');
+        const dayNumber = dateParts[0];
+        const monthName = dateParts[2] || dateParts[1];
+        
+        container.innerHTML = `
+            <div class="event-header">
+                <div class="event-image">
+                    <img src="${event.image}" alt="${event.titre}" onerror="this.src='https://picsum.photos/600/400?random=${event.id}'">
+                </div>
+                <div class="event-info">
+                    <h1>${event.titre}</h1>
+                    ${event.orchestre ? `<div class="orchestre">${event.orchestre}</div>` : ''}
+                    <div class="meta-details">
+                        <div class="meta-item"><i class="fas fa-calendar-alt"></i> ${event.date}</div>
+                        <div class="meta-item"><i class="fas fa-clock"></i> ${event.heure || '20H00'}</div>
+                        <div class="meta-item"><i class="fas fa-map-marker-alt"></i> ${event.lieu}</div>
+                        <div class="meta-item"><i class="fas fa-ticket-alt"></i> <span class="places-restantes">🎟 ${event.places} places</span></div>
+                    </div>
+                    <p style="font-size:1.05rem; line-height:1.5;">${event.description}</p>
+                    ${artistiqueHtml}
+                    <a href="register-event.html?id=${event.id}" class="btn-inscription"><i class="fas fa-pen-alt"></i> S'inscrire</a>
+                </div>
+            </div>
+            <div class="lieu-date-specifique">
+                <div class="card-lieu">
+                    <h3><i class="fas fa-theater-masks"></i> Lieu</h3>
+                    <p>${event.theatre || event.lieu}</p>
+                    <p>📍 ${event.lieu}</p>
+                </div>
+                <div class="card-horaire">
+                    <h3><i class="far fa-calendar-check"></i> Séance unique</h3>
+                    <p><strong>${dayNumber} ${event.jourSemaine || ''} ${monthName}</strong></p>
+                    <p>à ${event.heure || '20H00'}</p>
+                </div>
+            </div>
+        `;
+    }
+</script>
+</body>
+</html>
