@@ -1,0 +1,566 @@
+/* ============================================================
+   THEME : CLUB CULTUREL EL MEDINA - PROFESSIONNEL (INGÉNIEUR)
+   ============================================================ */
+
+/* ---------- VARIABLES (système de design) ---------- */
+:root {
+  /* Couleurs principales */
+  --color-primary: #6b1d1d;     /* bordeaux élégant */
+  --color-primary-dark: #4e1414;
+  --color-primary-light: #f8eaea;
+  
+  /* Neutres */
+  --color-white: #ffffff;
+  --color-gray-50: #f8f9fa;
+  --color-gray-100: #f1f3f5;
+  --color-gray-200: #e9ecef;
+  --color-gray-300: #dee2e6;
+  --color-gray-400: #ced4da;
+  --color-gray-500: #adb5bd;
+  --color-gray-600: #6c757d;
+  --color-gray-700: #495057;
+  --color-gray-800: #343a40;
+  --color-gray-900: #212529;
+  
+  /* Typographie */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  
+  /* Espacements */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  
+  /* Rayons */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+  
+  /* Ombres */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+}
+
+/* ---------- RESET & BASE ---------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-gray-800);
+  background: var(--color-gray-50);
+  line-height: 1.6;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- TYPOGRAPHIE ---------- */
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-gray-900);
+}
+
+h1 { font-size: 2.5rem; }
+h2 { 
+  font-size: 2rem; 
+  margin-bottom: var(--space-lg);
+  text-align: center;
+  color: var(--color-primary);
+}
+h3 { font-size: 1.5rem; margin-bottom: var(--space-sm); }
+h4 { font-size: 1.25rem; }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---------- HEADER (sticky, moderne) ---------- */
+.site-header {
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: var(--space-md) var(--space-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+.logo img {
+  height: 48px;
+  width: auto;
+}
+.logo h1 {
+  font-size: 1.5rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+/* Navigation principale */
+.main-nav {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-list {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+.nav-list a {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--color-gray-700);
+  padding: var(--space-sm) 0;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+  border-bottom: 2px solid transparent;
+}
+
+.nav-list a:hover,
+.nav-list a.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+/* Menu burger (caché par défaut) */
+.burger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.burger span {
+  width: 25px;
+  height: 2px;
+  background: var(--color-gray-800);
+  margin: 3px 0;
+  transition: var(--transition-fast);
+}
+
+/* ---------- MAIN ---------- */
+main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.intro {
+  font-size: 1rem;
+  color: var(--color-gray-700);
+}
+
+/* ---------- GRILLE D'ÉVÉNEMENTS (moderne) ---------- */
+.grid-evenements {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+}
+
+.event-carte, .card-event {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  border: 1px solid var(--color-gray-200);
+}
+
+.event-carte:hover, .card-event:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.event-carte img, .card-event img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.event-carte:hover img, .card-event:hover img {
+  transform: scale(1.02);
+}
+
+.event-container, .card-event .content {
+  padding: var(--space-lg);
+}
+
+.event-container h3 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  margin-bottom: var(--space-sm);
+  color: var(--color-primary);
+}
+
+.infos {
+  font-size: 0.85rem;
+  color: var(--color-gray-600);
+  margin-bottom: var(--space-md);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.event-container p {
+  font-size: 0.9rem;
+  margin-bottom: var(--space-lg);
+  color: var(--color-gray-700);
+}
+
+/* ---------- BOUTONS ---------- */
+.btn, .btn-primary, .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all var(--transition-base);
+  cursor: pointer;
+  border: none;
+  gap: var(--space-xs);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: var(--shadow-xs);
+}
+.btn-primary:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background: var(--color-gray-100);
+  color: var(--color-gray-800);
+  border: 1px solid var(--color-gray-300);
+}
+.btn-secondary:hover {
+  background: var(--color-gray-200);
+  transform: translateY(-1px);
+}
+
+/* ---------- FORMULAIRES (niveau pro) ---------- */
+.form-container {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-gray-200);
+  max-width: 700px;
+  margin: var(--space-xl) auto;
+}
+
+.form-group {
+  margin-bottom: var(--space-lg);
+}
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+  color: var(--color-gray-700);
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea,
+.form-container input,
+.form-container select,
+.form-container textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  transition: border var(--transition-fast), box-shadow var(--transition-fast);
+  background: var(--color-white);
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus,
+.form-container input:focus,
+.form-container select:focus,
+.form-container textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(107, 29, 29, 0.1);
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Messages d'erreur / succès */
+.error, #error-message {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  margin: var(--space-md) 0;
+  font-size: 0.85rem;
+  border-left: 4px solid #991b1b;
+}
+
+.success, #success-message {
+  background: #e0f2e9;
+  color: #14532d;
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  margin: var(--space-md) 0;
+  border-left: 4px solid #14532d;
+}
+
+/* Bouton dans formulaire */
+.form-container .btn-primary {
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1rem;
+  margin-top: var(--space-sm);
+}
+
+/* Page contact spécifique */
+.contact .form-container {
+  background: var(--color-white);
+}
+.contact .btn-primary {
+  width: auto;
+  min-width: 150px;
+}
+
+/* ---------- GALERIE ---------- */
+.galerie-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.galerie-photos figure {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base);
+  border: 1px solid var(--color-gray-200);
+}
+
+.galerie-photos figure:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.galerie-photos img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+figcaption {
+  padding: var(--space-md);
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--color-gray-600);
+  background: var(--color-gray-50);
+}
+
+/* ---------- FOOTER ---------- */
+.site-footer {
+  background: var(--color-gray-900);
+  color: var(--color-gray-400);
+  text-align: center;
+  padding: var(--space-xl);
+  margin-top: var(--space-2xl);
+  border-top: 1px solid var(--color-gray-800);
+}
+
+.site-footer a {
+  color: var(--color-primary-light);
+  transition: color var(--transition-fast);
+}
+
+.site-footer a:hover {
+  color: var(--color-white);
+  text-decoration: underline;
+}
+
+/* ---------- CARTE GÉNÉRIQUE (À propos, etc.) ---------- */
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-gray-200);
+  transition: transform var(--transition-base);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card img {
+  border-radius: var(--radius-md);
+  margin-top: var(--space-lg);
+}
+
+.call-to-action {
+  text-align: center;
+  margin: var(--space-2xl) 0;
+}
+
+/* ---------- COMPOSANTS ADDITIONNELS ---------- */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--color-gray-800);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  z-index: 1000;
+  animation: fadeOut 3s forwards;
+  box-shadow: var(--shadow-lg);
+}
+
+@keyframes fadeOut {
+  0% { opacity: 0; transform: translateY(10px); }
+  15% { opacity: 1; transform: translateY(0); }
+  85% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+/* Animation au scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Accessibilité : focus visible */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- RESPONSIVE (mobile first, desktop adjustments) ---------- */
+@media (max-width: 768px) {
+  .burger {
+    display: flex;
+  }
+  
+  .main-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--color-white);
+    padding: var(--space-md);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-120%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-base);
+    border-top: 1px solid var(--color-gray-200);
+  }
+  
+  #menu-toggle:checked ~ .main-nav,
+  #menu-toggle:checked + .burger + .main-nav {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+    width: 100%;
+  }
+  
+  .grid-evenements,
+  .galerie-photos {
+    grid-template-columns: 1fr;
+  }
+  
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  
+  .site-header {
+    padding: var(--space-md);
+  }
+  
+  main {
+    padding: var(--space-lg);
+  }
+  
+  .form-container {
+    padding: var(--space-lg);
+    margin: var(--space-lg);
+  }
+}
